@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ブレーメン - パン屋</title>
+  <link rel="stylesheet" href="https://content.lifeistech-lesson.jp/Curriculum_materials/Original/global.css" type="text/css">
+  <script src="initialize.js"></script>
+
+  <style>
+    /* ===== CSSのまとめ ===== */
+    
+    /* ヘッダーのスタイル */
+    header {
+      background-image: url(1.jpeg);
+      padding: 250px;
+      background-size: cover;
+    }
+
+    h1 {
+      color: white;
+      font-size: 80px;
+      font-family: 'Lobster', cursive; /* Lobsterが読み込めない場合を考慮 */
+      text-align: center;
+    }
+
+    /* 店の基本情報スタイル */
+    .information {
+      background-color: #ffffff;
+      font-family: 'Kosugi Maru', sans-serif;
+    }
+
+    section {
+      background-image: url(haikei.png);
+      padding: 32px;
+      color: #000000;
+      margin-bottom: 24px;
+    }
+
+    .rekisi {
+      background-image: url(haikei.png);
+      font-family: 'Kosugi Maru', sans-serif;
+    }
+
+    p {
+      color: #000000;
+      margin-bottom: 24px;
+      margin-left: 32px;
+      margin-right: 32px;
+      font-size: 25px;
+      font-family: 'Kosugi Maru', sans-serif;
+    }
+
+    h2 {
+      color: #8b4513;
+      margin-bottom: 24px;
+      font-size: 30px;
+    }
+
+    h3 {
+      font-family: 'Kosugi Maru', sans-serif;
+      color: #000000;
+    }
+
+    /* おすすめのパン紹介 (画像ギャラリー②) */
+    .photo_ch7-2 {
+      padding: 30px;
+    }
+
+    .photo_ch7-2 h3 {
+      color: #663300;
+    }
+
+    .photo_ch7-2 p {
+      color: #000000;
+      clear: left;
+    }
+
+    .big {
+      background-color: #ffffff;
+      width: 450px;
+      padding: 15px;
+      margin: 20px;
+      box-shadow: 10px 10px 30px #ffffe0;
+      float: left;
+      transform: rotate(-5deg);
+    }
+
+    .box {
+      float: left;
+    }
+
+    /* 商品メニューのスタイル */
+    .title {
+      font-size: 30px;
+      border-left-style: solid;
+      border-left-width: 10px;
+      padding-left: 15px;
+      margin-bottom: 50px;
+      font-family: 'Kosugi Maru', sans-serif;
+    }
+
+    .price {
+      padding: 30px;
+    }
+
+    .price h2 {
+      color: #8b4513;
+      font-family: 'Kosugi Maru', sans-serif;
+      border-color: #d2691e;
+    }
+
+    .price table {
+      background-color: #ffffff;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .price td {
+      border: 1px solid #000000;
+      padding: 10px;
+    }
+
+    .price th {
+      border: 1px solid #8b4513;
+      padding: 10px;
+      background-color: #ffffe0;
+      text-align: left;
+    }
+
+    .season th {
+      background-color: #ffc0cb;
+    }
+
+    /* 診断機能のスタイル */
+    .check-container {
+      background-color: #ffdc7a;
+      padding: 32px;
+      color: #8b4513;
+      background-image: none; /* sectionの背景画像を上書き */
+    }
+
+    .check-section {
+      margin-left: 32px;
+      margin-right: 32px;
+      font-family: 'Kosugi Maru', sans-serif;
+    }
+
+    .question-box {
+      border-radius: 12px 12px 0 0;
+      background-color: #ffffff;
+      padding: 20px;
+    }
+
+    .question-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .question-text {
+      font-size: 20px;
+      font-weight: bold;
+      margin-right: 16px;
+    }
+
+    .answer-input {
+      padding: 8px;
+      border-radius: 4px;
+      font-size: 18px;
+      margin: 8px;
+    }
+
+    .check-button-container {
+      text-align: center;
+    }
+
+    .check-button {
+      background-color: #d2691e;
+      color: #ffffff;
+      font-size: 20px;
+      padding: 8px 40px;
+      border-radius: 8px;
+      border-style: none;
+      margin-top: 20px;
+    }
+
+    .check-button:hover {
+      background-color: #de1c22;
+      cursor: pointer;
+    }
+
+    .check-result-box {
+      border-radius: 0 0 12px 12px;
+      background-color: #ffffff;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .check-result {
+      color: #d2691e;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    /* コメント機能のスタイル */
+    .comment-container {
+      background-color: #ffffff;
+      padding: 32px;
+      color: #8b4513;
+      background-image: none;
+    }
+
+    .comment-set {
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      border: 1px solid #eee;
+    }
+
+    .name-datetime-box {
+      display: flex;
+      align-items: center;
+    }
+
+    .name {
+      font-weight: bold;
+      color: #000000;
+      font-size: 16px;
+      margin-right: 12px;
+    }
+
+    .datetime {
+      color: #000000;
+      font-size: 14px;
+    }
+
+    .comment-text {
+      color: #000000;
+      font-size: 25px;
+      white-space: pre-wrap;
+      margin-top: 12px;
+      font-family: 'Stick', sans-serif;
+    }
+
+    form {
+      border-radius: 12px;
+      background-color: #ffffff;
+      padding: 20px;
+      margin-top: 24px;
+      border: 1px solid #ddd;
+    }
+
+    .comment-title {
+      font-weight: bold;
+      color: #000000;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .form-frame {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .form-fields {
+      padding-left: 12px;
+      flex-grow: 1;
+    }
+
+    .form-field {
+      display: flex;
+      margin-top: 12px;
+    }
+
+    .label-wrapper {
+      display: flex;
+      width: 64px;
+      height: 40px;
+      align-items: center;
+      justify-content: flex-end;
+      margin-right: 12px;
+      color: #000000;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .name-input {
+      width: 300px;
+      padding: 8px;
+      font-size: 16px;
+      background-color: #ffffff;
+      border: 1px solid #87ceeb;
+      border-radius: 8px;
+    }
+
+    .comment-input {
+      width: 100%;
+      height: 80px;
+      padding: 8px;
+      font-size: 16px;
+      background-color: #ffffff;
+      border: 1px solid #87ceeb;
+      border-radius: 8px;
+      margin-right: 12px;
+      resize: vertical;
+    }
+
+    .submit-button {
+      background-color: #8b4513;
+      color: #ffffff;
+      font-size: 16px;
+      padding: 8px;
+      border-radius: 5px;
+      border-style: none;
+    }
+
+    .submit-button:hover {
+      background-color: #de1c22;
+      cursor: pointer;
+    }
+
+    /* いいね機能 */
+    .like-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+
+    .like-button {
+      display: flex;
+      align-items: center;
+    }
+
+    .like-button:hover {
+      cursor: pointer;
+    }
+
+    .like-img {
+      width: 24px;
+      height: 24px;
+      margin-right: 4px;
+    }
+
+    .like-count {
+      font-size: 16px;
+      color: #800000;
+    }
+
+    /* フッター */
+    footer {
+      text-align: center;
+      background-color: #8b4513;
+      color: #ffffff;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>　</h1>
+  </header>
+
+  <section class="information">
+    <h2>お店情報</h2>
+    <p>
+      住所：一条南館昇降口（下の地図の赤い星の場所）<br>
+      営業時間：12:15 〜 13:00<br>
+      定休日：毎週月曜日、水曜日、金曜日
+    </p>
+    <img src="地図に.png" width="800" alt="地図">
+  </section>
+
+  <section class="rekisi">
+    <h2>ブレーメンの歴史</h2>
+    <p>
+      令和７年６月１２日で皆様のおかげでブレーメンも４８周年になりました。<br>
+      今は様々な学校やマンション、コンビニ、たくさんのお店も立ち街になってきたなと感じます。<br>
+      これからもスタッフ一同協力して、みなさんにおいしいパンをお届けしたいと思っています。<br>
+      今後ともどうぞよろしくお願いいたします。
+    </p>
+  </section>
+
+  <section class="photo_ch7-2">
+    <div class="big">
+      <img src="ebi.PNG" width="450" alt="エビかつサンド">
+      <h3>エビかつサンド</h3>
+    </div>
+    <div class="box">
+      <div class="small">
+        <img src="monnburann.png" width="460" alt="モンブランデニッシュ">
+      </div>
+      <div class="small2">
+        <img src="ro-ru.png" width="370" alt="ロールパン">
+      </div>
+    </div>
+    <p>モンブランデニッシュは新作です！</p>
+  </section>
+
+  <section class="price">
+    <h2 class="title">商品メニュー</h2>
+    <table>
+      <tr><th>定番商品</th> <th>価格</th></tr>
+      <tr><td>エビカツロール</td> <td>270円</td></tr>
+      <tr><td>カツロール</td> <td>250円</td></tr>
+      <tr><td>からあげロール</td> <td>190円、大270円</td></tr>
+      <tr><td>タマゴロール</td> <td>150円</td></tr>
+      <tr><td>焼きそばロール</td> <td>150円、大200円</td></tr>
+      <tr><td>サラダチキンロール</td> <td>190円</td></tr>
+      <tr><td>チキン南蛮ロール</td> <td>230円</td></tr>
+      <tr><td>はちみつパン</td> <td>120円</td></tr>
+      <tr><td>アンパン</td> <td>130円</td></tr>
+      <tr><td>カレーパン</td> <td>150円</td></tr>
+      <tr><td>クリームパン</td> <td>160円</td></tr>
+      <tr><td>チョコフラワー</td> <td>130円</td></tr>
+      <tr><td>カナディアンメープルパン</td> <td>130円</td></tr>
+      <tr><td>イチゴフラワー</td> <td>145円</td></tr>
+      <tr><td>ミルクフラワー</td> <td>130円</td></tr>
+      <tr><td>ゴールデン</td> <td>170円</td></tr>
+      <tr><td>カップケーキ</td> <td>140円</td></tr>
+      <tr><td>はちみつフランス</td> <td>130円</td></tr>
+      <tr><td>練乳フランス</td> <td>135円</td></tr>
+      <tr><td>ピーナッツクリーム</td> <td>150円</td></tr>
+      <tr><td>チョコロール</td> <td>150円</td></tr>
+      <tr><td>さつまいもアンパン</td> <td>160円</td></tr>
+      <tr><td>アスカ</td> <td>170円</td></tr>
+      <tr><td>チョコチップメロンパン</td> <td>170円</td></tr>
+      <tr><td>ホイップメロンパン</td> <td>170円</td></tr>
+      <tr><td>チョコうずまき</td> <td>170円</td></tr>
+      <tr><td>いちごうずまき</td> <td>170円</td></tr>
+      <tr><td>ドーナツボール</td> <td>120円</td></tr>
+      <tr><td>クッキーサンド</td> <td>180円</td></tr>
+      <tr><td>キング</td> <td>145円</td></tr>
+      <tr><td>めんたいフランス</td> <td>140円</td></tr>
+      <tr><td>ベーコンポテトパン</td> <td>140円</td></tr>
+      <tr><td>メンタイポテトパン</td> <td>180円</td></tr>
+      <tr><td>イモッチ</td> <td>190円</td></tr>
+      <tr><td>とろりんハムチーズ</td> <td>170円</td></tr>
+      <tr><td>ベーコンフランス</td> <td>165円</td></tr>
+      <tr><td>ピザ</td> <td>210円、ハーフ120円</td></tr>
+      <tr><td>ウィンナーロール</td> <td>180円</td></tr>
+      <tr><td>昔なつかしのコロッケパン</td> <td>180円</td></tr>
+      <tr><td>マロンポケット</td> <td>180円</td></tr>
+      <tr><td>ツインクリームクロワッサン</td> <td>200円</td></tr>
+      <tr><td>あんぱんホイップクロワッサン</td> <td>200円</td></tr>
+      <tr><td>生クロワッサン</td> <td>200円</td></tr>
+      <tr><td>カスタードデニッシュ</td> <td>180円</td></tr>
+      <tr><td>クリームホーン</td> <td>120円</td></tr>
+      <tr><td>チョコデニッシュ</td> <td>170円</td></tr>
+      <tr><td>アップルシナモン</td> <td>200円</td></tr>
+      <tr><td>将軍</td> <td>200円</td></tr>
+      <tr><td>ジャムぺストリー</td> <td>200円</td></tr>
+      <tr class="season"><th>季節限定</th> <th>価格</th></tr>
+      <tr><td>抹茶クロワッサン</td> <td>200円</td></tr>
+      <tr><td>瀬戸内レモン</td> <td>175円</td></tr>
+      <tr><td>桜あんぱん</td> <td>170円</td></tr>
+      <tr><td>栗あんぱん</td> <td>200円</td></tr>
+    </table>
+    <img src="menyu.png" width="1000" alt="メニュー">
+  </section>
+
+  <section class="check-container">
+    <h2>おすすめのパン診断</h2>
+    <div class="check-section">
+      <div class="question-box">
+        <div class="question-item">
+          <p class="question-text">Q1 甘いパンと総菜パンなら甘いパンが食べたいですか？</p>
+          <select class="answer-input" id="answerQ1">
+            <option>選択してください</option>
+            <option>はい</option>
+            <option>いいえ</option>
+          </select>
+        </div>
+        <div class="question-item">
+          <p class="question-text">Q2 食べる時間はなるべく短くしたいですか？</p>
+          <select class="answer-input" id="answerQ2">
+            <option>選択してください</option>
+            <option>はい</option>
+            <option>いいえ</option>
+          </select>
+        </div>
+        <div class="question-item">
+          <p class="question-text">Q3 150円以内に収めたいですか？</p>
+          <select class="answer-input" id="answerQ3">
+            <option>選択してください</option>
+            <option>はい</option>
+            <option>いいえ</option>
+          </select>
+        </div>
+        <div class="check-button-container">
+          <button class="check-button" onclick="checkButton()">診断</button>
+        </div>
+      </div>
+      <div class="check-result-box">
+        <p>あなたにおすすめのパンは・・・</p>
+        <p class="check-result" id="recommendedText">???</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="comment-container">
+    <h2>みんなのコメント</h2>
+    <div class="frame">
+      <div id="comments"></div>
+      <form id="form">
+        <h3 class="comment-title">コメントを書く</h3>
+        <div class="form-frame">
+          <div class="form-fields">
+            <div class="form-field">
+              <label class="label-wrapper">名前</label>
+              <input class="name-input" id="name">
+            </div>
+            <div class="form-field">
+              <label class="label-wrapper">コメント</label>
+              <textarea class="comment-input" id="comment"></textarea>
+            </div>
+          </div>
+          <button type="button" class="submit-button" onclick="submitButton()">送信</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 Bremen
+  </footer>
+
+  <script>
+    /* ===== JavaScriptのまとめ ===== */
+
+    // 診断結果のテキストを書き換える関数
+    function displayRecommendedText(str) {
+      document.getElementById("recommendedText").innerText = str;
+    }
+
+    // 診断ボタン
+    async function checkButton() {
+      let answerQ1 = document.getElementById("answerQ1").value;
+      let answerQ2 = document.getElementById("answerQ2").value;
+      let answerQ3 = document.getElementById("answerQ3").value;
+
+      if (typeof getCheckList === "function") {
+        let checkList = await getCheckList();
+        let found = false;
+        for (let i = 0; i < checkList.length; i++) {
+          if (answerQ1 == checkList[i]["answer1"] &&
+              answerQ2 == checkList[i]["answer2"] &&
+              answerQ3 == checkList[i]["answer3"]) {
+            displayRecommendedText(checkList[i]["result"]);
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          displayRecommendedText("すべての回答を選択してね！");
+        }
+      } else {
+        displayRecommendedText("診断データが読み込めませんでした");
+      }
+    }
+
+    // コメント表示
+    let commentsContainer = document.getElementById("comments");
+
+    async function renderAllComments() {
+      if (typeof getComments !== "function") return;
+      
+      let allComments = await getComments();
+      commentsContainer.innerHTML = "";
+
+      for (let i = 0; i < allComments.length; i++) {
+        let commentBox = document.createElement("div");
+        commentBox.innerHTML = `
+          <div class="comment-set">
+            <div class="name-datetime-box">
+              <div class="name">${allComments[i]["author"]}</div>
+              <div class="datetime">${allComments[i]["createdAt"]}</div>
+            </div>
+            <pre class="comment-text">${allComments[i]["content"]}</pre>
+            <div class="like-container">
+              <div class="like-button" onclick="likeComment(${i})">
+                <img src="images/heart.png" class="like-img" alt="like">
+                <span class="like-count">${allComments[i]["likes"]}</span>
+              </div>
+            </div>
+          </div>
+        `;
+        commentsContainer.prepend(commentBox);
+      }
+    }
+
+    // 送信ボタン
+    async function submitButton() {
+      let comment = {
+        author: document.getElementById("name").value,
+        content: document.getElementById("comment").value,
+        createdAt: new Date().toLocaleString().slice(0, -3),
+        likes: 0
+      };
+
+      if (comment.author != "" && comment.content != "" && typeof postComment === "function") {
+        await postComment(comment);
+        document.getElementById("form").reset();
+        await renderAllComments();
+      }
+    }
+
+    // いいねボタン
+    async function likeComment(i) {
+      if (typeof getComments === "function" && typeof patchComment === "function") {
+        let allComments = await getComments();
+        allComments[i]["likes"] += 1;
+        await patchComment(i, allComments[i]);
+        await renderAllComments();
+      }
+    }
+
+    // 読み込み時に実行
+    window.onload = function() {
+      if (typeof renderAllComments === "function") {
+        renderAllComments();
+      }
+    };
+  </script>
+</body>
+</html>
