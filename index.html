@@ -502,28 +502,6 @@
     </div>
   </section>
 
-  <section class="comment-container">
-    <h2>みんなのコメント</h2>
-    <div class="frame">
-      <div id="comments"></div>
-      <form id="form">
-        <h3 class="comment-title">コメントを書く</h3>
-        <div class="form-frame">
-          <div class="form-fields">
-            <div class="form-field">
-              <label class="label-wrapper">名前</label>
-              <input class="name-input" id="name">
-            </div>
-            <div class="form-field">
-              <label class="label-wrapper">コメント</label>
-              <textarea class="comment-input" id="comment"></textarea>
-            </div>
-          </div>
-          <button type="button" class="submit-button" onclick="submitButton()">送信</button>
-        </div>
-      </form>
-    </div>
-  </section>
 
   <footer>
     &copy; 2026 Bremen
@@ -563,70 +541,10 @@
       }
     }
 
-    // コメント表示
-    let commentsContainer = document.getElementById("comments");
-
-    async function renderAllComments() {
-      if (typeof getComments !== "function") return;
-      
-      let allComments = await getComments();
-      commentsContainer.innerHTML = "";
-
-      for (let i = 0; i < allComments.length; i++) {
-        let commentBox = document.createElement("div");
-        commentBox.innerHTML = `
-          <div class="comment-set">
-            <div class="name-datetime-box">
-              <div class="name">${allComments[i]["author"]}</div>
-              <div class="datetime">${allComments[i]["createdAt"]}</div>
-            </div>
-            <pre class="comment-text">${allComments[i]["content"]}</pre>
-            <div class="like-container">
-              <div class="like-button" onclick="likeComment(${i})">
-                <img src="images/heart.png" class="like-img" alt="like">
-                <span class="like-count">${allComments[i]["likes"]}</span>
-              </div>
-            </div>
-          </div>
-        `;
-        commentsContainer.prepend(commentBox);
-      }
-    }
-
-    // 送信ボタン
-    async function submitButton() {
-      let comment = {
-        author: document.getElementById("name").value,
-        content: document.getElementById("comment").value,
-        createdAt: new Date().toLocaleString().slice(0, -3),
-        likes: 0
-      };
-
-      if (comment.author != "" && comment.content != "" && typeof postComment === "function") {
-        await postComment(comment);
-        document.getElementById("form").reset();
-        await renderAllComments();
-      }
-    }
-
-    // いいねボタン
-    async function likeComment(i) {
-      if (typeof getComments === "function" && typeof patchComment === "function") {
-        let allComments = await getComments();
-        allComments[i]["likes"] += 1;
-        await patchComment(i, allComments[i]);
-        await renderAllComments();
-      }
-    }
-
-    // 読み込み時に実行
-    window.onload = function() {
-      if (typeof renderAllComments === "function") {
-        renderAllComments();
-      }
-    };
+  
   </script>
 </body>
 
 </html>
+
 
